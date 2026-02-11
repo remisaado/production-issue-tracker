@@ -17,7 +17,7 @@ public class User {
         TEAM_LEADER,
         TECHNICIAN,
         MANAGER
-    };
+    }
 
     public long getId() { return id; }
 
