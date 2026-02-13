@@ -27,9 +27,9 @@ public class Issue {
 
     public enum IssueStatus  {
         OPEN,
-        ASSIGNED,
-        CLOSED,
-        SOLVED
+        IN_PROGRESS,
+        RESOLVED,
+        CLOSED
     };
 
     public enum Priority  {
