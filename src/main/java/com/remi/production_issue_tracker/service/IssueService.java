@@ -1,5 +1,6 @@
 package com.remi.production_issue_tracker.service;
 
+import com.remi.production_issue_tracker.model.Comment;
 import com.remi.production_issue_tracker.model.Issue;
 import com.remi.production_issue_tracker.repository.IssueRepository;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,29 @@ public class IssueService {
 
     public Issue createIssue(Issue issue) {
         return issueRepository.save(issue);
+    }
+
+    public Issue addComment(Long issueId, Comment comment) {
+        Issue issue = issueRepository.findById(issueId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
+
+        comment.setIssue(issue);
+
+        issue.getComments().add(comment);
+
+        return issueRepository.save(issue);
+    }
+
+    public void removeComment(Long issueId, Long commentId) {
+        Issue issue = issueRepository.findById(issueId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
+
+        Comment commentToRemove = issue.getComments().stream()
+                .filter(comment -> comment.getId().equals(commentId))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment not found"));
+
+        issue.getComments().remove(commentToRemove);
+
+        issueRepository.save(issue);
     }
 
     public Issue getIssueById(Long id) {

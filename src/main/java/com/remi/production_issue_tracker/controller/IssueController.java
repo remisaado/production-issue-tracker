@@ -1,5 +1,6 @@
 package com.remi.production_issue_tracker.controller;
 
+import com.remi.production_issue_tracker.model.Comment;
 import com.remi.production_issue_tracker.model.Issue;
 import com.remi.production_issue_tracker.service.IssueService;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,16 @@ public class IssueController {
     @DeleteMapping("/{id}")
     public void deleteIssue(@PathVariable Long id) {
         issueService.deleteIssue(id);
+    }
+
+    @PostMapping("/{id}/comments")
+    public Issue addComment(@PathVariable Long id, @RequestBody Comment comment) {
+        return issueService.addComment(id, comment);
+    }
+
+    @DeleteMapping("/{issueId}/comments/{commentId}")
+    public Issue removeComment(@PathVariable Long issueId, @PathVariable Long commentId) {
+        issueService.removeComment(issueId, commentId);
+        return issueService.getIssueById(issueId);
     }
 }

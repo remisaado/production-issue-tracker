@@ -2,6 +2,8 @@ package com.remi.production_issue_tracker.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Issue {
@@ -24,6 +26,8 @@ public class Issue {
     @ManyToOne
     @JoinColumn(name = "production_line_id")
     private ProductionLine productionLine;
+    @OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public enum IssueStatus  {
         OPEN,
@@ -67,4 +71,7 @@ public class Issue {
 
     public ProductionLine getProductionLine() { return productionLine; }
     public void setProductionLine(ProductionLine productionLine) { this.productionLine = productionLine; }
+
+    public List<Comment> getComments() { return comments; }
+    public void setComments(List<Comment> comments) { this.comments = comments; }
 }

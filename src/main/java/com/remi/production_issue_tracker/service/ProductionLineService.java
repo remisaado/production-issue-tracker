@@ -12,28 +12,21 @@ import java.util.List;
 public class ProductionLineService {
     private final ProductionLineRepository productionLineRepository;
 
-    public ProductionLineService(ProductionLineRepository productionLineRepository) {
-        this.productionLineRepository = productionLineRepository;
-    }
+    public ProductionLineService(ProductionLineRepository productionLineRepository) { this.productionLineRepository = productionLineRepository; }
 
-    public List<ProductionLine> getAllProductionLines() {
-        return productionLineRepository.findAll();
-    }
+    public List<ProductionLine> getAllProductionLines() { return productionLineRepository.findAll(); }
 
-    public ProductionLine createProductionLine(ProductionLine productionLine) {
-        return productionLineRepository.save(productionLine);
-    }
+    public ProductionLine createProductionLine(ProductionLine productionLine) { return productionLineRepository.save(productionLine); }
 
     public ProductionLine getProductionLineById(Long id) {
         return productionLineRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Production line not found"));
     }
 
-    public void deleteProductionLine(Long id) {
-        productionLineRepository.deleteById(id);
-    }
+    public void deleteProductionLine(Long id) { productionLineRepository.deleteById(id); }
 
     public ProductionLine updateProductionLine(Long id, ProductionLine updatedProductionLine) {
-        ProductionLine existingProductionLine = productionLineRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Production line not found"));
+        ProductionLine existingProductionLine = productionLineRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Production line not found"));
 
         existingProductionLine.setTitle(updatedProductionLine.getTitle());
 
