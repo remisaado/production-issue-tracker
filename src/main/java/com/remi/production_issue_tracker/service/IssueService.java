@@ -38,6 +38,10 @@ public class IssueService {
         existingIssue.setTitle(updatedIssue.getTitle());
         existingIssue.setDescription(updatedIssue.getDescription());
         existingIssue.setStatus(updatedIssue.getStatus());
+        existingIssue.setPriority(updatedIssue.getPriority());
+        existingIssue.setReportedBy(updatedIssue.getReportedBy());
+        existingIssue.setAssignedTo(updatedIssue.getAssignedTo());
+        existingIssue.setProductionLine(updatedIssue.getProductionLine());
 
         return issueRepository.save(existingIssue);
     }
