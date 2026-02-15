@@ -25,7 +25,7 @@ public class ProductionLineController {
     }
 
     @PostMapping
-    public ProductionLine CreateProductionLine(@RequestBody ProductionLine productionLine) {
+    public ProductionLine createProductionLine(@RequestBody ProductionLine productionLine) {
         return productionLineService.createProductionLine(productionLine);
     }
 
