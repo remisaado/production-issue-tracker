@@ -19,8 +19,23 @@ public class IssueController {
         return issueService.getAllIssues();
     }
 
+    @GetMapping("/{id}")
+    public Issue getIssueById(@PathVariable Long id) {
+        return issueService.getIssueById(id);
+    }
+
     @PostMapping
     public Issue CreateIssue(@RequestBody Issue issue) {
         return issueService.createIssue(issue);
+    }
+
+    @PutMapping("/{id}")
+    public Issue updateIssue(@PathVariable Long id, @RequestBody Issue issue) {
+        return issueService.updateIssue(id, issue);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteIssue(@PathVariable Long id) {
+        issueService.deleteIssue(id);
     }
 }

@@ -2,7 +2,9 @@ package com.remi.production_issue_tracker.service;
 
 import com.remi.production_issue_tracker.model.Issue;
 import com.remi.production_issue_tracker.repository.IssueRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,5 +22,23 @@ public class IssueService {
 
     public Issue createIssue(Issue issue) {
         return issueRepository.save(issue);
+    }
+
+    public Issue getIssueById(Long id) {
+        return issueRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
+    }
+
+    public void deleteIssue(Long id) {
+        issueRepository.deleteById(id);
+    }
+
+    public Issue updateIssue(Long id, Issue updatedIssue) {
+        Issue existingIssue = issueRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
+
+        existingIssue.setTitle(updatedIssue.getTitle());
+        existingIssue.setDescription(updatedIssue.getDescription());
+        existingIssue.setStatus(updatedIssue.getStatus());
+
+        return issueRepository.save(existingIssue);
     }
 }
