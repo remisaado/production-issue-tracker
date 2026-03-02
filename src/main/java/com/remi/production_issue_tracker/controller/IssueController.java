@@ -1,5 +1,6 @@
 package com.remi.production_issue_tracker.controller;
 
+import com.remi.production_issue_tracker.dto.IssueDTO;
 import com.remi.production_issue_tracker.model.Comment;
 import com.remi.production_issue_tracker.model.Issue;
 import com.remi.production_issue_tracker.service.IssueService;
@@ -16,22 +17,22 @@ public class IssueController {
     public IssueController(IssueService issueService) { this.issueService = issueService; }
 
     @GetMapping
-    public List<Issue> getAllIssues() {
+    public List<IssueDTO> getAllIssues() {
         return issueService.getAllIssues();
     }
 
     @GetMapping("/{id}")
-    public Issue getIssueById(@PathVariable Long id) {
-        return issueService.getIssueById(id);
+    public IssueDTO getIssueById(@PathVariable Long id) {
+        return issueService.getIssueDTOById(id);
     }
 
     @PostMapping
-    public Issue createIssue(@RequestBody Issue issue) {
+    public IssueDTO createIssue(@RequestBody Issue issue) {
         return issueService.createIssue(issue);
     }
 
     @PutMapping("/{id}")
-    public Issue updateIssue(@PathVariable Long id, @RequestBody Issue issue) {
+    public IssueDTO updateIssue(@PathVariable Long id, @RequestBody Issue issue) {
         return issueService.updateIssue(id, issue);
     }
 
@@ -41,13 +42,13 @@ public class IssueController {
     }
 
     @PostMapping("/{id}/comments")
-    public Issue addComment(@PathVariable Long id, @RequestBody Comment comment) {
+    public IssueDTO addComment(@PathVariable Long id, @RequestBody Comment comment) {
         return issueService.addComment(id, comment);
     }
 
     @DeleteMapping("/{issueId}/comments/{commentId}")
-    public Issue removeComment(@PathVariable Long issueId, @PathVariable Long commentId) {
+    public IssueDTO removeComment(@PathVariable Long issueId, @PathVariable Long commentId) {
         issueService.removeComment(issueId, commentId);
-        return issueService.getIssueById(issueId);
+        return issueService.getIssueDTOById(issueId);
     }
 }
