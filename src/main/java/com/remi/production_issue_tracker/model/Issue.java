@@ -34,14 +34,14 @@ public class Issue {
         IN_PROGRESS,
         RESOLVED,
         CLOSED
-    };
+    }
 
     public enum Priority  {
         LOW,
         MEDIUM,
         HIGH,
         CRITICAL
-    };
+    }
 
     public Issue() {
         this.createdAt = LocalDateTime.now();
