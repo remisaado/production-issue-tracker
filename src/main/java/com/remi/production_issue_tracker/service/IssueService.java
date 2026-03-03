@@ -33,7 +33,8 @@ public class IssueService {
     }
 
     public IssueDTO addComment(Long issueId, Comment comment) {
-        Issue issue = issueRepository.findById(issueId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
+        Issue issue = issueRepository.findById(issueId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
 
         comment.setIssue(issue);
 
@@ -44,7 +45,8 @@ public class IssueService {
     }
 
     public void removeComment(Long issueId, Long commentId) {
-        Issue issue = issueRepository.findById(issueId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
+        Issue issue = issueRepository.findById(issueId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
 
         Comment commentToRemove = issue.getComments().stream()
                 .filter(comment -> comment.getId().equals(commentId))

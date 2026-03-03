@@ -14,9 +14,9 @@ public class Issue {
     private String title;
     private String description;
     @Enumerated(EnumType.STRING)
-    private IssueStatus status;
+    private IssueStatus status = IssueStatus.OPEN;
     @Enumerated(EnumType.STRING)
-    private Priority priority;
+    private Priority priority = Priority.MEDIUM;
     @ManyToOne
     @JoinColumn(name = "reported_by_id")
     private User reportedBy;

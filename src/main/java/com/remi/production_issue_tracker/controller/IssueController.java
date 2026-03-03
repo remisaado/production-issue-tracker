@@ -17,34 +17,24 @@ public class IssueController {
     public IssueController(IssueService issueService) { this.issueService = issueService; }
 
     @GetMapping
-    public List<IssueDTO> getAllIssues() {
-        return issueService.getAllIssues();
-    }
+    public List<IssueDTO> getAllIssues() { return issueService.getAllIssues(); }
 
     @GetMapping("/{id}")
-    public IssueDTO getIssueById(@PathVariable Long id) {
-        return issueService.getIssueDTOById(id);
-    }
+    public IssueDTO getIssueById(@PathVariable Long id) { return issueService.getIssueDTOById(id); }
 
     @PostMapping
-    public IssueDTO createIssue(@RequestBody Issue issue) {
-        return issueService.createIssue(issue);
-    }
+    public IssueDTO createIssue(@RequestBody Issue issue) { return issueService.createIssue(issue); }
 
     @PutMapping("/{id}")
-    public IssueDTO updateIssue(@PathVariable Long id, @RequestBody Issue issue) {
-        return issueService.updateIssue(id, issue);
-    }
+    public IssueDTO updateIssue(@PathVariable Long id, @RequestBody Issue issue)
+    { return issueService.updateIssue(id, issue); }
 
     @DeleteMapping("/{id}")
-    public void deleteIssue(@PathVariable Long id) {
-        issueService.deleteIssue(id);
-    }
+    public void deleteIssue(@PathVariable Long id) { issueService.deleteIssue(id); }
 
     @PostMapping("/{id}/comments")
-    public IssueDTO addComment(@PathVariable Long id, @RequestBody Comment comment) {
-        return issueService.addComment(id, comment);
-    }
+    public IssueDTO addComment(@PathVariable Long id, @RequestBody Comment comment)
+    { return issueService.addComment(id, comment); }
 
     @DeleteMapping("/{issueId}/comments/{commentId}")
     public IssueDTO removeComment(@PathVariable Long issueId, @PathVariable Long commentId) {
