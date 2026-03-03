@@ -1,8 +1,13 @@
 package com.remi.production_issue_tracker.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class CommentDTO {
     private Long id;
+    @NotBlank(message = "Text cannot be empty")
     private String text;
+    @NotNull(message = "Commenting user must be set")
     private Long commentedById;
     private String commentedByName;
 

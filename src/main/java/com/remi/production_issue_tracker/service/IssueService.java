@@ -5,6 +5,7 @@ import com.remi.production_issue_tracker.dto.IssueDTO;
 import com.remi.production_issue_tracker.model.Comment;
 import com.remi.production_issue_tracker.model.Issue;
 import com.remi.production_issue_tracker.repository.IssueRepository;
+import com.remi.production_issue_tracker.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,9 +15,11 @@ import java.util.List;
 @Service
 public class IssueService {
     private final IssueRepository issueRepository;
+    private final UserRepository userRepository;
 
-    public IssueService(IssueRepository issueRepository) {
+    public IssueService(IssueRepository issueRepository, UserRepository userRepository) {
         this.issueRepository = issueRepository;
+        this.userRepository = userRepository;
     }
 
     public List<IssueDTO> getAllIssues() {
@@ -32,10 +35,14 @@ public class IssueService {
         return mapToDTO(savedIssue);
     }
 
-    public IssueDTO addComment(Long issueId, Comment comment) {
+    public IssueDTO addComment(Long issueId, CommentDTO commentDTO) {
         Issue issue = issueRepository.findById(issueId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
 
+        Comment comment = new Comment();
+        comment.setText(commentDTO.getText());
+        comment.setCommentedBy(userRepository.findById(commentDTO.getCommentedById())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")));
         comment.setIssue(issue);
 
         issue.getComments().add(comment);

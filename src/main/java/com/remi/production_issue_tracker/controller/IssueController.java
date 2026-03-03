@@ -1,9 +1,10 @@
 package com.remi.production_issue_tracker.controller;
 
+import com.remi.production_issue_tracker.dto.CommentDTO;
 import com.remi.production_issue_tracker.dto.IssueDTO;
-import com.remi.production_issue_tracker.model.Comment;
 import com.remi.production_issue_tracker.model.Issue;
 import com.remi.production_issue_tracker.service.IssueService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,8 +34,8 @@ public class IssueController {
     public void deleteIssue(@PathVariable Long id) { issueService.deleteIssue(id); }
 
     @PostMapping("/{id}/comments")
-    public IssueDTO addComment(@PathVariable Long id, @RequestBody Comment comment)
-    { return issueService.addComment(id, comment); }
+    public IssueDTO addComment(@PathVariable Long id, @Valid @RequestBody CommentDTO commentDTO)
+    { return issueService.addComment(id, commentDTO); }
 
     @DeleteMapping("/{issueId}/comments/{commentId}")
     public IssueDTO removeComment(@PathVariable Long issueId, @PathVariable Long commentId) {
