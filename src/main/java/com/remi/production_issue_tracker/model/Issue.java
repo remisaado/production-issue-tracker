@@ -1,6 +1,9 @@
 package com.remi.production_issue_tracker.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,18 +14,23 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime createdAt;
+    @NotBlank(message = "Title cannot be empty")
     private String title;
     private String description;
+    @NotNull(message = "Status must be set")
     @Enumerated(EnumType.STRING)
     private IssueStatus status = IssueStatus.OPEN;
+    @NotNull(message = "Priority must be set")
     @Enumerated(EnumType.STRING)
     private Priority priority = Priority.MEDIUM;
+    @NotNull(message = "Reporting user must be set")
     @ManyToOne
     @JoinColumn(name = "reported_by_id")
     private User reportedBy;
     @ManyToOne
     @JoinColumn(name = "assigned_to_id")
     private User assignedTo;
+    @NotNull(message = "Production line must be set")
     @ManyToOne
     @JoinColumn(name = "production_line_id")
     private ProductionLine productionLine;

@@ -10,16 +10,12 @@ public class IssueDTO {
     private String status;
     private String priority;
     private LocalDateTime createdAt;
-
     private Long reportedById;
     private String reportedByName;
-
     private Long assignedToId;
     private String assignedToName;
-
     private Long productionLineId;
     private String productionLineName;
-
     private List<CommentDTO> comments;
 
     public IssueDTO(

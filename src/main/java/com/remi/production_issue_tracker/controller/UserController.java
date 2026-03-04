@@ -2,6 +2,7 @@ package com.remi.production_issue_tracker.controller;
 
 import com.remi.production_issue_tracker.model.User;
 import com.remi.production_issue_tracker.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public class UserController {
     public User getUserById(@PathVariable Long id) { return userService.getUserById(id); }
 
     @PostMapping
-    public User createUser(@RequestBody User user) { return userService.createUser(user); }
+    public User createUser(@Valid  @RequestBody User user) { return userService.createUser(user); }
 }

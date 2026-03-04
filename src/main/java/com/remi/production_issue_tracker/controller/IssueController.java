@@ -24,10 +24,10 @@ public class IssueController {
     public IssueDTO getIssueById(@PathVariable Long id) { return issueService.getIssueDTOById(id); }
 
     @PostMapping
-    public IssueDTO createIssue(@RequestBody Issue issue) { return issueService.createIssue(issue); }
+    public IssueDTO createIssue(@Valid @RequestBody Issue issue) { return issueService.createIssue(issue); }
 
     @PutMapping("/{id}")
-    public IssueDTO updateIssue(@PathVariable Long id, @RequestBody Issue issue)
+    public IssueDTO updateIssue(@PathVariable Long id, @Valid @RequestBody Issue issue)
     { return issueService.updateIssue(id, issue); }
 
     @DeleteMapping("/{id}")
