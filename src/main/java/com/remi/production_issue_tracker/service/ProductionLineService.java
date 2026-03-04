@@ -32,7 +32,7 @@ public class ProductionLineService {
         ProductionLine existingProductionLine = productionLineRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Production line not found"));
 
-        existingProductionLine.setTitle(updatedProductionLine.getTitle());
+        if (updatedProductionLine.getTitle() != null) existingProductionLine.setTitle(updatedProductionLine.getTitle());
 
         return productionLineRepository.save(existingProductionLine);
     }

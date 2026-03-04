@@ -80,13 +80,13 @@ public class IssueService {
         Issue existingIssue = issueRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Issue not found"));
 
-        existingIssue.setTitle(updatedIssue.getTitle());
-        existingIssue.setDescription(updatedIssue.getDescription());
-        existingIssue.setStatus(updatedIssue.getStatus());
-        existingIssue.setPriority(updatedIssue.getPriority());
-        existingIssue.setReportedBy(updatedIssue.getReportedBy());
-        existingIssue.setAssignedTo(updatedIssue.getAssignedTo());
-        existingIssue.setProductionLine(updatedIssue.getProductionLine());
+        if (updatedIssue.getTitle() != null) existingIssue.setTitle(updatedIssue.getTitle());
+        if (updatedIssue.getDescription() != null) existingIssue.setDescription(updatedIssue.getDescription());
+        if (updatedIssue.getStatus() != null) existingIssue.setStatus(updatedIssue.getStatus());
+        if (updatedIssue.getPriority() != null) existingIssue.setPriority(updatedIssue.getPriority());
+        if (updatedIssue.getReportedBy() != null) existingIssue.setReportedBy(updatedIssue.getReportedBy());
+        if (updatedIssue.getAssignedTo() != null) existingIssue.setAssignedTo(updatedIssue.getAssignedTo());
+        if (updatedIssue.getProductionLine() != null) existingIssue.setProductionLine(updatedIssue.getProductionLine());
 
         Issue savedIssue = issueRepository.save(existingIssue);
         return mapToDTO(savedIssue);
