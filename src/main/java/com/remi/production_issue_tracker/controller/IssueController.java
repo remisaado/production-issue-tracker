@@ -18,7 +18,10 @@ public class IssueController {
     public IssueController(IssueService issueService) { this.issueService = issueService; }
 
     @GetMapping
-    public List<IssueDTO> getAllIssues() { return issueService.getAllIssues(); }
+    public List<IssueDTO> getIssues(
+            @RequestParam(required = false) Issue.IssueStatus status,
+            @RequestParam(required = false) Issue.Priority priority)
+    { return issueService.getIssues(status, priority); }
 
     @GetMapping("/{id}")
     public IssueDTO getIssueById(@PathVariable Long id) { return issueService.getIssueDTOById(id); }

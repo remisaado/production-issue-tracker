@@ -22,8 +22,18 @@ public class IssueService {
         this.userRepository = userRepository;
     }
 
-    public List<IssueDTO> getAllIssues() {
-        List<Issue> issues = issueRepository.findAll();
+    public List<IssueDTO> getIssues(Issue.IssueStatus status, Issue.Priority priority) {
+        List<Issue> issues;
+
+        if (status != null && priority != null) {
+            issues = issueRepository.findByStatusAndPriority(status, priority);
+        } else if (status != null) {
+            issues = issueRepository.findByStatus(status);
+        } else if (priority != null) {
+            issues = issueRepository.findByPriority(priority);
+        } else {
+            issues = issueRepository.findAll();
+        }
 
         return issues.stream()
                 .map(this::mapToDTO)
