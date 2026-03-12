@@ -5,6 +5,8 @@ import com.remi.production_issue_tracker.dto.IssueDTO;
 import com.remi.production_issue_tracker.model.Issue;
 import com.remi.production_issue_tracker.service.IssueService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +20,11 @@ public class IssueController {
     public IssueController(IssueService issueService) { this.issueService = issueService; }
 
     @GetMapping
-    public List<IssueDTO> getIssues(
+    public Page<IssueDTO> getIssues(
             @RequestParam(required = false) Issue.IssueStatus status,
-            @RequestParam(required = false) Issue.Priority priority)
-    { return issueService.getIssues(status, priority); }
+            @RequestParam(required = false) Issue.Priority priority,
+            Pageable pageable)
+    { return issueService.getIssues(status, priority, pageable); }
 
     @GetMapping("/{id}")
     public IssueDTO getIssueById(@PathVariable Long id) { return issueService.getIssueDTOById(id); }

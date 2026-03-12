@@ -1,14 +1,16 @@
 package com.remi.production_issue_tracker.repository;
 
 import com.remi.production_issue_tracker.model.Issue;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface IssueRepository extends JpaRepository<Issue, Long> {
-    List<Issue> findByStatus(Issue.IssueStatus status);
+    Page<Issue> findByStatus(Issue.IssueStatus status, Pageable pageable);
 
-    List<Issue> findByPriority(Issue.Priority priority);
+    Page<Issue> findByPriority(Issue.Priority priority, Pageable pageable);
 
-    List<Issue> findByStatusAndPriority(Issue.IssueStatus status, Issue.Priority priority);
+    Page<Issue> findByStatusAndPriority(Issue.IssueStatus status, Issue.Priority priority, Pageable pageable);
 }

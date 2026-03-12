@@ -6,6 +6,8 @@ import com.remi.production_issue_tracker.model.Comment;
 import com.remi.production_issue_tracker.model.Issue;
 import com.remi.production_issue_tracker.repository.IssueRepository;
 import com.remi.production_issue_tracker.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,22 +24,20 @@ public class IssueService {
         this.userRepository = userRepository;
     }
 
-    public List<IssueDTO> getIssues(Issue.IssueStatus status, Issue.Priority priority) {
-        List<Issue> issues;
+    public Page<IssueDTO> getIssues(Issue.IssueStatus status, Issue.Priority priority, Pageable pageable) {
+        Page<Issue> issues;
 
         if (status != null && priority != null) {
-            issues = issueRepository.findByStatusAndPriority(status, priority);
+            issues = issueRepository.findByStatusAndPriority(status, priority, pageable);
         } else if (status != null) {
-            issues = issueRepository.findByStatus(status);
+            issues = issueRepository.findByStatus(status, pageable);
         } else if (priority != null) {
-            issues = issueRepository.findByPriority(priority);
+            issues = issueRepository.findByPriority(priority, pageable);
         } else {
-            issues = issueRepository.findAll();
+            issues = issueRepository.findAll(pageable);
         }
 
-        return issues.stream()
-                .map(this::mapToDTO)
-                .toList();
+        return issues.map(this::mapToDTO);
     }
 
     public IssueDTO createIssue(Issue issue) {
